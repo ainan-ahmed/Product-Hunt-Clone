@@ -20,6 +20,11 @@
       <h1>Login</h1>
     </span>
     <div class="wrap-login100 p-t-90 p-b-30">
+      {% if error %} {% for key,value in error.items %}
+      <div class="alert alert-danger">
+        {{value}}
+      </div>
+      {% endfor %} {% endif %}
       <form method="POST" class="login100-form validate-form">
         {% csrf_token %}
         <div
@@ -45,7 +50,7 @@
           <input
             class="input100"
             type="password"
-            name="pass"
+            name="password"
             placeholder="Password"
           />
           <span class="focus-input100"></span>

@@ -14,12 +14,13 @@ def register(request):
         password_c = request.POST['password_c']
         if password == password_c:
             try:
-                username_check = User.objects.get(username = username)
-                email_check = User.objects.get(email  = email)
-                if username_check:
-                    error['username'] = 'username is already taken. Please choose another'
-                if email_check:
-                    error['email'] = 'email is already taken. Please try again or login'
+                user = User.objects.get(username = username)
+                #email_check = User.objects.get(email  = email)
+                # if username_check:
+                #     error['username'] = 'username is already taken. Please choose another'
+                # if email_check:
+                #     error['email'] = 'email is already taken. Please try again or login'
+                error['username'] = 'username is already taken. Please choose another'
                 return render(request,'accounts/register.html',{'error':error})
             except User.DoesNotExist:
                 user = User.objects.create_user(username,email,password,first_name = fname,last_name = lname)
@@ -30,15 +31,25 @@ def register(request):
             return render(request,'accounts/register.html',{'error':error})
     else:
         return render(request,'accounts/register.html')
-    
-    
-    
-    
-    
-    
-    
-    
+
 def login(request):
-    return render(request,'accounts/login.html')
+    if request.method == 'POST':
+        error = {}
+        username = request.POST['username']
+        password = request.POST['password']
+        user = auth.authenticate(username = username,password = password)
+        if user is not None:
+            auth.login(request,user)
+            return redirect('home')
+        else:
+            error['notAuth'] = "Wrong username/password. Please try again."
+            return render(request,'accounts/login.html',{'error':error})
+    else:
+        return render(request,'accounts/login.html')
 def logout(request):
+    if request.method == 'POST':
+        auth.logout(request)
+        return redirect('home')
+    else:
+        return redirect('home')
     print('hello')
