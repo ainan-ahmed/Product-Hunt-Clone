@@ -15,6 +15,62 @@
       body {
         background-color: #f3f3f3;
       }
+      .btn {
+        display: inline-block;
+        line-height: 0 25px;
+        padding: 0 25px;
+        -webkit-transition: all 0.4s ease;
+        -o-transition: all 0.4s ease;
+        -moz-transition: all 0.4s ease;
+        transition: all 0.4s ease;
+        cursor: pointer;
+        font-size: 15px;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: #fff;
+        font-family: inherit;
+      }
+      .btn--radius {
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+      }
+
+      .btn--radius-2 {
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+      }
+
+      .btn--pill {
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+        border-radius: 20px;
+      }
+
+      .btn--green {
+        background: #57b846;
+      }
+
+      .btn--green:hover {
+        background: #4dae3c;
+      }
+
+      .btn--blue {
+        background: #4272d7;
+      }
+
+      .btn--blue:hover {
+        background: #3868cd;
+      }
+
+      .btn--red {
+        background: #ff4b5a;
+      }
+
+      .btn--red:hover {
+        background: #eb3746;
+      }
     </style>
     {% block externals %} {% endblock externals %}
   </head>
@@ -44,23 +100,26 @@
             placeholder="Search for products"
             aria-label="Search"
           />
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+          <button class="btn btn-success my-2 my-sm-0 " type="submit">
             Search
           </button>
         </form>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto">
             {% if user.is_authenticated %}
-            <div class="nav-item mt-2 mr-2 text-success text-center text-uppercase font-weight-bold" >Welcome {{ request.user.first_name}}</div>
+            <div
+              class="nav-item mt-2 mr-2 text-success text-center text-uppercase font-weight-bold"
+            >
+              Welcome {{ request.user.first_name}}
+            </div>
             <a
-              class="nav-item nav-link btn ml-1 btn-primary "
+              class="nav-item nav-link btn ml-1 btn-primary p-1"
               href="javascript:{gotoLogout()}"
-              
               >Logout</a
             >
             <form id="logout" action="{% url 'logout' %}" method="POST">
               {% csrf_token %}
-              <input type="hidden">
+              <input type="hidden" />
             </form>
 
             {% else %}
@@ -70,7 +129,7 @@
               >Login</a
             >
             <a
-              class="nav-item nav-link btn ml-1 btn-primary "
+              class="nav-item nav-link btn ml-1 btn-primary text-white"
               href="{% url 'register' %}"
               >Register</a
             >
@@ -106,10 +165,9 @@
       crossorigin="anonymous"
     ></script>
     <script type="text/javascript">
-      function gotoLogout()
-      {
-        console.log('logout worked!! ')
-        document.getElementById('logout').submit();
+      function gotoLogout() {
+        console.log("logout worked!! ");
+        document.getElementById("logout").submit();
       }
     </script>
     {% block externalScripts %} {% endblock externalScripts %}
