@@ -9,11 +9,11 @@ class Category(models.Model):
         return self.name
 
 class Product(models.Model):
-    title = models.CharField(max_length = 30)
+    title = models.CharField(max_length = 40)
     publication_date = models.DateTimeField()
-    total_votes  = models.IntegerField(default=0)
+    total_votes  = models.IntegerField(default=1)
     image = models.ImageField(upload_to = 'images/')
-    icon = models.ImageField(upload_to = 'iamges/')
+    icon = models.ImageField(upload_to = 'icons/')
     body = models.TextField()
     category = models.ForeignKey(Category,on_delete=models.CASCADE)
     hunter = models.ForeignKey(User,on_delete=models.CASCADE)

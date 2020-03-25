@@ -1,0 +1,59 @@
+{% extends "main.html" %}
+
+{% block externals %}
+{% load staticfiles %}
+  <link href="{% static 'products/css/show.css' %}" rel="stylesheet">
+  <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+  <script>tinymce.init({selector:'textarea'});</script>  
+{% endblock externals %}
+
+{% block content%}
+   
+    <main class="main-content">
+
+      <div class="section ">
+        <div class="container">
+          <div class="text-center mt-8 col-10">
+              
+                  <img class="img-fluid mb-5" style="width: 10%; height: auto ;" src="{{product.icon.url}}" alt="">   
+                 <h2 class="">{{product.title}}</h2>
+             
+             
+            <p>{{product.pub}} in <a href="#">{{product.category.name}}</a></p>
+            <p style="color: green;" class="font-weight-bold" >Hunted by {{product.hunter.first_name}} {{product.hunter.last_name}}</p>
+          </div>
+
+
+          <div class="row">
+              <div class="text-center my-8 col-10">
+            <img class="rounded-md" src="{{product.image.url}}" style="width: 100%;height: auto;" alt="...">
+          </div>
+          <div class="col-2 my-8">
+            <a href="{% url 'product.upvote' product.id %}"><button class="btn btn-primary">Upvote {{product.total_votes}} <i class="fas fa-arrow-up"></i></button></a>
+        </div>
+          </div>
+            <div class="row">
+                <div class="col-10  ">
+                    <hr class="w-100px">
+               <p> {{product.body}}</p>
+               
+            </div>
+            </div>
+        </div>
+      </div>
+
+
+    </main>
+
+    <!-- Scripts -->
+    <!-- <script src="{% static 'products/js/page.min.js' %}"></script>
+    <script src="{% static 'products/js/script.js' %}"></script> -->
+
+  </body>
+</html>
+
+{% endblock content %}
+
+{% block externalscripts %}
+  
+{% endblock externalscripts %}
