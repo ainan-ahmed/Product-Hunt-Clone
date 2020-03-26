@@ -4,7 +4,8 @@ from .models import Category,Product
 from django.utils import timezone
 # Create your views here.
 def home (request):
-    return render(request,'products/home.html')
+    products = Product.objects.all()
+    return render(request,'products/home.html',{'products':products})
 
 @login_required
 def create(request):
@@ -27,15 +28,18 @@ def create(request):
 def show(request,product_id):
     product = get_object_or_404(Product,pk = product_id)
     return render(request,'products/show.html',{'product':product})
-    
+@login_required
 def upvote(request,product_id):
     product = Product.objects.get(id = product_id)
+    if product.hunter == request.user:
+        upvote_error = "You can't upvote your own product"
+        return redirect('/products/'+ str(product_id))
     product.total_votes +=1
     product.save()
-    return render(request,'products/show.html',{'product':product})
-    
+    return redirect('/products/'+ str(product_id))
+@login_required
 def edit(request,product_id):
     print('adsf')
-
+@login_required
 def delete(request,product_id):
     print('adsf')

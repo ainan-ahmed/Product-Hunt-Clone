@@ -8,11 +8,14 @@
 {% endblock externals %}
 
 {% block content%}
-   
+    
     <main class="main-content">
 
       <div class="section ">
         <div class="container">
+          {% if upvote_error %}
+              <div class="alert alert-danger">{{upvote_error}}</div>
+          {% endif %}
           <div class="text-center mt-8 col-10">
               
                   <img class="img-fluid mb-5" style="width: 10%; height: auto ;" src="{{product.icon.url}}" alt="">   
