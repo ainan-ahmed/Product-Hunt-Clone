@@ -1,45 +1,13 @@
 {% extends "main.html" %} {% block content %}
 <main role="main">
   <div class="container">
-     
-     
     <h2 class="mt-5 mb-3">Latest Products</h2>
-    <!-- <div class="row mt-5">
-      {% for product in products.all %}
-      <div class="col-md-4">
-        <div class="card mb-4">
-          <img
-            class="img-fluid img-thumbnail"
-            src="{{product.image.url}}"
-            class="card-img-top"
-          />
-
-          <div class="card-body">
-            <div class="card-title font-weight-bold">{{product.title}}</div>
-            <div class="card-text">
-              {{product.summary}}
-              <a href="{% url 'product.show' product.id %}" class="float-right"
-                >Read full post</a
-              >
-            </div>
-
-            <div class="text-right">
-                <small class="font-weight-bold">Hunted by {{product.hunter}}</small>
-              <small class="">{{product.pub}}</small>
-            </div>
-          </div>
-        </div>
-      </div>
-      {% endfor %}
-    </div> -->
      {% for product in products %}
     <div class="row mb-4 border">
         
         <div class="col-2" >
             <a href="{% url 'product.show' product.id %}">
-                
                 <img
-                href = ""
                 class="img-fluid img-thumbnail"
                 src="{{product.icon.url}}"
                 class="card-img-top"
@@ -56,7 +24,10 @@
         </div>
         <div class="col-3">
             <button class="btn btn-primary mt-5">Upvote {{product.total_votes}} <i class="fas fa-arrow-up"></i></button>
-        </div>
+            {% if product.hunter == request.user %}
+              <a class="btn btn-info float-right" href="{% url 'product.edit' product.id %}">Edit</a>
+            {% endif %}
+          </div>
         
     </div>
     {% endfor %}

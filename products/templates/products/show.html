@@ -13,8 +13,12 @@
 
       <div class="section ">
         <div class="container">
-          {% if upvote_error %}
-              <div class="alert alert-danger">{{upvote_error}}</div>
+          {% if messages %}
+              <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="alert alert-danger {{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+              </ul>
           {% endif %}
           <div class="text-center mt-8 col-10">
               
