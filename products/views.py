@@ -4,28 +4,40 @@ from .models import Category,Product
 from django.utils import timezone
 from .forms import ProductCreateForm
 from django.contrib import messages
+from django.core.paginator import Paginator
+from django.views.generic import (View,TemplateView,ListView,DetailView,CreateView,UpdateView,DeleteView)
 # Create your views here.
-def home (request):
-    products = Product.objects.all()
-    return render(request,'products/home.html',{'products':products})
-
-@login_required
-def create(request):
-    if request.method=='POST':
-        form = ProductCreateForm(request.POST,request.FILES)
-        if form.is_valid():
-            product = form.save(commit=False)
-            product.publication_date = timezone.datetime.now() 
-            product.hunter = request.user
-            product.save()
-            return redirect('/products/'+ str(product.id))
-    else:
-        form = ProductCreateForm()
-        return render(request,'products/create.html',{'form':form})
-
-def show(request,product_id):
-    product = get_object_or_404(Product,pk = product_id)
-    return render(request,'products/show.html',{'product':product})
+class Home (ListView):
+    context_object_name  = 'products'
+    template_name = 'products/home.html'
+    model = Product
+    
+class Show (DetailView):
+    model = Product
+    template_name = 'products/show.html'
+    
+class Create(CreateView):
+    template_name = 'products/create.html'
+    form_class = ProductCreateForm
+    
+    def form_valid(self, form):
+        self.object = form.save(commit = False)
+        self.object.publication_date = timezone.datetime.now()
+        self.object.hunter = self.request.user
+        
+# @login_required
+# def create(request):
+#     if request.method=='POST':
+#         form = ProductCreateForm(request.POST,request.FILES)
+#         if form.is_valid():
+#             product = form.save(commit=False)
+#             product.publication_date = timezone.datetime.now() 
+#             product.hunter = request.user
+#             product.save()
+#             return redirect('/products/'+ str(product.id))
+#     else:
+#         form = ProductCreateForm()
+#         return render(request,'products/create.html',{'form':form})
 
 @login_required
 def upvote(request,product_id):

@@ -1,6 +1,5 @@
 from django import forms
 from .models import Product,Category
-
 class ProductCreateForm(forms.ModelForm):
     category  = forms.ModelChoiceField(queryset=Category.objects.all())
     
@@ -13,3 +12,4 @@ class ProductCreateForm(forms.ModelForm):
         }
         
 
+    
