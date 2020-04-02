@@ -23,7 +23,7 @@ class Product(models.Model):
     def pub(self ):
         return self.publication_date.strftime('%b %e %Y')
     def get_absolute_url(self):
-        return reverse('product:product.show',kwargs={'pk':self.id})
+        return reverse('product.show',kwargs={'pk':self.id})
     def __str__(self):
         return self.title
 

@@ -5,7 +5,9 @@ from django.contrib.auth.password_validation import validate_password
 from django.core import validators
 class UserCreateForm(forms.ModelForm):
     
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'input100','placeholder':'Password'}),validators=[validate_password])
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'input100','placeholder':'Password'})
+                               ,validators=[validate_password])
+    cpassword=forms.CharField(widget=forms.PasswordInput(),validators=[validate_password])
     class Meta:
         model = User
         fields = {'first_name','last_name','email','username','password'}
@@ -15,7 +17,6 @@ class UserCreateForm(forms.ModelForm):
             'email':forms.EmailInput(attrs={'class':'input100','placeholder':'Email'}),
             'username':forms.TextInput(attrs={'class':'input100','placeholder':'Username'}),
         }
-    
     def clean_email(self):
         data = self.cleaned_data['email']
         if User.objects.filter(email=data).count() > 0:
@@ -26,3 +27,5 @@ class UserCreateForm(forms.ModelForm):
         if User.objects.filter(username=data).count() > 0:
             raise forms.ValidationError("We have a user with this username")
         return data
+    
+    

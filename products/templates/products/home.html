@@ -26,6 +26,7 @@
             <button class="btn btn-primary mt-5">Upvote {{product.total_votes}} <i class="fas fa-arrow-up"></i></button>
             {% if product.hunter == request.user %}
               <a class="btn btn-info float-right" href="{% url 'product.edit' product.id %}">Edit</a>
+              <a class="btn btn-danger float-left" href="{% url 'product.delete' product.id %}">Delete</a>
             {% endif %}
           </div>
         

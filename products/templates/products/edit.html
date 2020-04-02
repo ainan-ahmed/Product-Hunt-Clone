@@ -49,6 +49,7 @@
           enctype="multipart/form-data"
         >
         {% csrf_token %}
+        <input type="hidden" name="_method" value="PUT" />
           <div class="form-row m-b-55">
             <div class="name">Title</div>
             <div class="value">
@@ -56,6 +57,7 @@
                 <div class="col">
                   <div class="input-group-desc">
                     <!-- <input class="input--style-5" type="text" name="title" value="{{product.title}}"   required/> -->
+                  
                     {{form.title}}
                   </div>
                 </div>

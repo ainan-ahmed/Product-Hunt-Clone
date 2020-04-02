@@ -6,7 +6,7 @@ urlpatterns = [
    path('create',views.Create.as_view(),name='product.create'),
    path('<int:pk>',views.Show.as_view(),name='product.show'),
    path('<int:product_id>/upvote',views.upvote,name='product.upvote'),
-   path('<int:product_id>/edit',views.edit,name='product.edit'),
-   path('<int:product_id>/delte',views.delete,name='product.delete')
+   path('<int:pk>/edit',views.Edit.as_view(),name='product.edit'),
+   path('<int:pk>/delete',views.Delete.as_view(),name='product.delete')  
    
 ]
