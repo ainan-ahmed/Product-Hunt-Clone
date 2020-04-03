@@ -1,0 +1,1 @@
+web: gunicorn productHuntClone.wsgi --log-file -
