@@ -1,0 +1,12 @@
+{% extends "main.html" %} {% block content %}
+<div class="container">
+  <h1 class="mt-5">Delete {{product.title}}??</h1>
+  <form method="POST">
+    {% csrf_token %}
+    <div class="row mt-5">
+      <input type="submit" class="btn btn-danger mr-3" value="Delete" />
+      <a href="{% url 'home' %}">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock content %}

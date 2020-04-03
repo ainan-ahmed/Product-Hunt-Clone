@@ -49,9 +49,3 @@ def upvote(request,product_id):
     product.save()
     return redirect('/products/'+ str(product_id))
 
-
-
-
-@login_required
-def delete(request,product_id):
-    print('adsf')
