@@ -1,8 +1,10 @@
 {% extends "main.html" %} {% block content %}
 <main role="main">
   <div class="container">
-    <h2 class="mt-5 mb-3">Latest Products</h2>
-     {% for product in products %}
+    <h2 class="mt-5 mb-5 font-weight-bold">Products in {{category.name}}</h2>
+    <hr>
+    <hr>
+     {% for product in category.product_set.all %}
     <div class="row mb-4 border">
         
         <div class="col-2" >

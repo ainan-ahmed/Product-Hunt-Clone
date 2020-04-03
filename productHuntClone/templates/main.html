@@ -11,7 +11,10 @@
       integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
       crossorigin="anonymous"
     />
-    <script src="https://kit.fontawesome.com/0b40333001.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/0b40333001.js"
+      crossorigin="anonymous"
+    ></script>
     <style>
       body {
         background-color: #f3f3f3;
@@ -94,17 +97,36 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <form class="form-inline my-2 my-lg-0">
+        <form method="GET" class="form-inline my-2 my-lg-0" action="{% url 'product.search'%}">
+          {% csrf_token %}
           <input
             class="form-control mr-sm-2"
-            type="search"
+            type="text"
             placeholder="Search for products"
             aria-label="Search"
+            name="data"
           />
           <button class="btn btn-success my-2 my-sm-0 p-1" type="submit">
             Search
           </button>
         </form>
+        <div class="dropdown ml-2 ">
+          <button
+            class="btn btn-primary dropdown-toggle mr-sm-0 my-2 p-1"
+            type="button"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Category
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          {% for category in categories %} 
+            <a class="dropdown-item" href="{% url 'category.detail' category.id %}">{{category.name}}</a>
+          {% endfor %}
+          </div>
+        </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto">
             {% if user.is_authenticated %}

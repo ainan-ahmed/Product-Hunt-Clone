@@ -8,11 +8,24 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.views.generic import (View,TemplateView,ListView,DetailView,CreateView,UpdateView,DeleteView)
 from django.urls import reverse_lazy
+from django.contrib.postgres.search import SearchVector
 # Create your views here.
+
+def  search(request):
+    query = request.GET['data']
+    result = Product.objects.annotate(
+            search = SearchVector('title' , 'body'),
+        ).filter(search = query)
+    print(result)
+    return render(request,'products/search.html',{'result':result,'query':query})
+
 class Home (ListView):
     context_object_name  = 'products'
     template_name = 'products/home.html'
     model = Product
+class CategoryPage(DetailView):
+    template_name = 'categories/home.html'
+    model = Category
     
 class Show (DetailView):
     model = Product
