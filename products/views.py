@@ -23,6 +23,7 @@ class Home (ListView):
     context_object_name  = 'products'
     template_name = 'products/home.html'
     model = Product
+    paginate_by = 3
 class CategoryPage(DetailView):
     template_name = 'categories/home.html'
     model = Category

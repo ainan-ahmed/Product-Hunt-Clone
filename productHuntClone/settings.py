@@ -25,7 +25,7 @@ SECRET_KEY = '3102mc2_kx7@vnr9zf5n87bc#$)9dv5ci02h8$+%hzap(f2s9p'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['huntproduct.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition

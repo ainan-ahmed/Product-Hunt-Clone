@@ -2,38 +2,63 @@
 <main role="main">
   <div class="container">
     <h2 class="mt-5 mb-5 font-weight-bold">Products in {{category.name}}</h2>
-    <hr>
-    <hr>
-     {% for product in category.product_set.all %}
+    <hr />
+    <hr />
+    {% for product in category.product_set.all %}
     <div class="row mb-4 border">
-        
-        <div class="col-2" >
-            <a href="{% url 'product.show' product.id %}">
-                <img
-                class="img-fluid img-thumbnail"
-                src="{{product.icon.url}}"
-                class="card-img-top"
-                
-              />
-            </a>
-        </div>
-        <div class="col-7">
-            <div class="card-title font-weight-bold">{{product.title}}</div>
-            {{product.summary}}
-              <a href="{% url 'product.show' product.id %}" class="float-right"
-                >Read full post</a
-              >
-        </div>
-        <div class="col-3">
-            <button class="btn btn-primary mt-5">Upvote {{product.total_votes}} <i class="fas fa-arrow-up"></i></button>
-            {% if product.hunter == request.user %}
-              <a class="btn btn-info float-right" href="{% url 'product.edit' product.id %}">Edit</a>
-              <a class="btn btn-danger float-left" href="{% url 'product.delete' product.id %}">Delete</a>
-            {% endif %}
-          </div>
-        
+      <div class="col-2">
+        <a href="{% url 'product.show' product.id %}">
+          <img
+            class="img-fluid img-thumbnail"
+            src="{{product.icon.url}}"
+            class="card-img-top"
+          />
+        </a>
+      </div>
+      <div class="col-7">
+        <div class="card-title font-weight-bold">{{product.title}}</div>
+        {{product.summary}}
+        <a href="{% url 'product.show' product.id %}" class="float-right"
+          >Read full post</a
+        >
+      </div>
+      <div class="col-3">
+        <button class="btn btn-primary mt-5">
+          Upvote {{product.total_votes}} <i class="fas fa-arrow-up"></i>
+        </button>
+        {% if product.hunter == request.user %}
+        <a
+          class="btn btn-info float-right"
+          href="{% url 'product.edit' product.id %}"
+          >Edit</a
+        >
+        <a
+          class="btn btn-danger float-left"
+          href="{% url 'product.delete' product.id %}"
+          >Delete</a
+        >
+        {% endif %}
+      </div>
     </div>
     {% endfor %}
+    <ul class="pagination float-right mb-5">
+        {% if page_obj.has_previous %}
+        <li class="page-item"><a href="?page=1" class="page-link">&laquo; first</a></li>
+        <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}" class="page-link">previous</a>
+        </li>
+        {% endif %}
+
+        {% if page_obj.paginator.num_pages %}
+        <li class="current page-item p-2">
+          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </li>
+        {% endif %} 
+
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="page-link">next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}" class="page-link">last &raquo;</a>
+        {% endif %}
+    </ul>
   </div>
 </main>
 
